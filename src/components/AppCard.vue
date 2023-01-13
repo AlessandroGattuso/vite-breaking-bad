@@ -8,7 +8,7 @@ export default {
 </script>
 <template>
   <div class="card">
-    <img :src="card.card_images[0].image_url" class="card-img-top" alt="...">
+    <img :src="card.card_images[0].image_url" class="card-img-top">
     <div class="card-body">
       <h5 class="card-title">{{ card.name }}</h5>
     </div>

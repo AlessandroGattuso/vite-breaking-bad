@@ -21,7 +21,8 @@
       async getCardCollection(){
         await axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Alien')
         .then((answer)=>{
-          this.store.cardsCollection = (answer.data.data).slice()
+          store.cardsCollection = (answer.data.data).slice()
+          store.filtered = store.cardsCollection.splice()
         });
         console.log(store.cardsCollection[0])
       }

@@ -11,12 +11,12 @@ export default {
     return{
       store
     }
-  }  
+  }
 }
 </script>
 <template>
-  <div class="d-flex flex-wrap container card-container mt-5">
-    <AppCard v-for="(card, index) in store.cardsCollection" :card="card" :key="index"></AppCard>
+  <div class="d-flex flex-wrap container card-container my-5">
+    <AppCard v-for="(card, index) in store.filtered" :card="card" :key="index"></AppCard>
   </div>
 </template>
 <style lang="sass" scoped>

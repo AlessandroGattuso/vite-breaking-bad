@@ -1,11 +1,24 @@
 <script>
+import { store } from '../store.js' 
+
 export default {
   name: 'AppHeader',
   data(){
     return{
-
+      store
     }
-  }  
+  },
+  methods:{
+    searchNameCard(){
+      store.filtered = store.cardsCollection
+      if(store.search.split(" ").join("") != ''){
+        store.filtered = store.cardsCollection.filter((e) => e.name.split(" ").join("").toLowerCase().match(store.search.split(" ").join("").toLowerCase()))
+        //console.log("\n\n" +  this.filtered.forEach((e) => console.log(e.name)))
+      }
+
+      console.log("\n\n" +  store.filtered.length)
+    }
+  }
 }
 </script>
 <template>
@@ -28,8 +41,7 @@ export default {
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="store.search" @keyup="searchNameCard">
         </form>
       </div>
     </div>

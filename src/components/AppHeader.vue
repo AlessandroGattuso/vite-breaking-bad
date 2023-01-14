@@ -30,18 +30,15 @@ export default {
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Alien<span class="text-body-tertiary">({{ store.cardsCollection.length }})</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="#">
-                  Alien<span class="text-body-tertiary">({{ store.cardsCollection.length }})</span>
-                </a>
-              </li>
-              <!-- <li><hr class="dropdown-divider"></li> -->
-            </ul>
+          <li class="nav-item">
+            <select class="form-select text-body-secondary" id="inputGroupSelect01">
+              <option value="Alien" selected>
+                  Alien({{ store.cardsCollection.length }})
+              </option>
+              <option value="Other">
+                  Other
+              </option>
+            </select>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -52,5 +49,4 @@ export default {
   </nav>
 </template>
 <style lang="sass" scoped>
-  
 </style>

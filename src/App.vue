@@ -26,6 +26,7 @@
         .then((answer)=>{
           store.filtered = store.cardsCollection = (answer.data.data).slice()
         });
+        console.log(store.cardsCollection.length)
         setTimeout(()=>{
           this.loaded = true
         }, 1000)

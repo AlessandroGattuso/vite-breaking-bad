@@ -9,9 +9,6 @@ export default {
       store,
       typesLength: []
     }
-  },
-  created(){
-    this.getTypesLength()
   },  
   methods:{
     searchNameCard(){
@@ -24,14 +21,6 @@ export default {
       store.typeActive = document.querySelector('select').value;
       this.$emit('changeArchetype')
     },
-    getTypesLength(){
-      store.archetypes.map(async (type) => {
-        await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${type}`)
-          .then((answer)=>{
-            this.typesLength.push(answer.data.data.length)
-          });
-      })
-    }
   }
 }
 </script>
@@ -45,9 +34,9 @@ export default {
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <select v-on:change="changeType" class="form-select text-body-secondary" id="inputGroupSelect01">
-              <option :value="type" v-for="(type, index) in store.archetypes" :key="index">
-                  {{ type }}
-                  <span>({{ typesLength[index] }})</span>
+              <option :value="type.name" v-for="(type, index) in store.archetypes" :key="index">
+                  {{ type.name }} 
+                  ({{ type.size }})
               </option>
             </select>
           </li>

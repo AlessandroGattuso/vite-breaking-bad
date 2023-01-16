@@ -5,5 +5,6 @@ export const store = reactive({
   search: '',
   filtered: [],
   archetypes: [],
-  typeActive: 'D/D'
+  typeActive: 'D/D',
+  typesLength: []
 })

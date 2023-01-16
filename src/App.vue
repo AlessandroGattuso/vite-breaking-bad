@@ -27,10 +27,6 @@
         .then((answer)=>{
           store.filtered = store.cardsOfThatType = (answer.data.data).slice()
         });
-        axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Neos`)
-        .then((answer)=>{
-          console.log(answer)
-        });
         setTimeout(()=>{
           this.loaded = true
         }, 1000)
@@ -38,7 +34,14 @@
       async getArchetypes(){
         await axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php')
         .then((answer)=>{
-          store.archetypes =  answer.data.map(item => item.archetype_name);
+          store.archetypes =  answer.data.map(item => {
+            if(item.archetype_name == 'Mayakashi\n Shiranui'){
+             return 'Mayakashi'
+            }
+            else{
+             return item.archetype_name 
+            }
+          });
         });
 
         let archetypesTemp = []

@@ -10,12 +10,14 @@ export default {
   </div>
 </template>
 <style lang="sass" scoped>
+  @use '../styles/partials/variables' as *
 
   div
+    color: $primary
     height: 100vh
     width: 100vw
     p
-      color: #a9a9a9
+      color: #404040
       font-size: 10px
       font-weight: 600
   .animation

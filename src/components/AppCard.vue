@@ -29,6 +29,7 @@ export default {
         img
           width: 80%
     .card-body
+        text-align: center
         color: white
         
 </style>

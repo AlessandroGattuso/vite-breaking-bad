@@ -12,7 +12,8 @@
       AppLoader
     },
     created(){
-      this.getCardCollection()
+      this.getArchetypes()
+      this.getCardsOfThatType()
     },
     data(){
       return{
@@ -21,15 +22,20 @@
       }
     },
     methods:{
-      async getCardCollection(){
-        await axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Alien')
+      async getCardsOfThatType(){
+        await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${store.typeActive}`)
         .then((answer)=>{
-          store.filtered = store.cardsCollection = (answer.data.data).slice()
+          store.filtered = store.cardsOfThatType = (answer.data.data).slice()
         });
-        console.log(store.cardsCollection.length)
         setTimeout(()=>{
           this.loaded = true
         }, 1000)
+      },
+      async getArchetypes(){
+        await axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php')
+        .then((answer)=>{
+          store.archetypes =  answer.data.map(item => item.archetype_name);
+        });
       }
     }
 }
@@ -40,7 +46,7 @@
     <AppLoader></AppLoader>
   </div>
   <div v-else>
-    <AppHeader></AppHeader>
+    <AppHeader @changeArchetype="getCardsOfThatType"></AppHeader>
     <AppBody></AppBody>
   </div>
 </template>

@@ -1,22 +1,36 @@
 <script>
 import { store } from '../store.js' 
+import axios from 'axios'
 
 export default {
   name: 'AppHeader',
   data(){
     return{
-      store
+      store,
+      typesLength: []
     }
   },
+  created(){
+    this.getTypesLength()
+  },  
   methods:{
     searchNameCard(){
-      store.filtered = store.cardsCollection
+      store.filtered = store.cardsOfThatType
       if(store.search.split(" ").join("") != ''){
-        store.filtered = store.cardsCollection.filter((e) => e.name.split(" ").join("").toLowerCase().match(store.search.split(" ").join("").toLowerCase()))
-        //console.log("\n\n" +  this.filtered.forEach((e) => console.log(e.name)))
+        store.filtered = store.cardsOfThatType.filter((e) => e.name.split(" ").join("").toLowerCase().match(store.search.split(" ").join("").toLowerCase()))
       }
-
-      console.log("\n\n" +  store.filtered.length)
+    },
+    changeType(){
+      store.typeActive = document.querySelector('select').value;
+      this.$emit('changeArchetype')
+    },
+    getTypesLength(){
+      store.archetypes.map(async (type) => {
+        await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${type}`)
+          .then((answer)=>{
+            this.typesLength.push(answer.data.data.length)
+          });
+      })
     }
   }
 }
@@ -30,12 +44,10 @@ export default {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <select class="form-select text-body-secondary" id="inputGroupSelect01">
-              <option value="Alien" selected>
-                  Alien({{ store.cardsCollection.length }})
-              </option>
-              <option value="Other">
-                  Other
+            <select v-on:change="changeType" class="form-select text-body-secondary" id="inputGroupSelect01">
+              <option :value="type" v-for="(type, index) in store.archetypes" :key="index">
+                  {{ type }}
+                  <span>({{ typesLength[index] }})</span>
               </option>
             </select>
           </li>

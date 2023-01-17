@@ -1,15 +1,13 @@
 <script>
 import { store } from '../store.js' 
-import axios from 'axios'
 
 export default {
   name: 'AppHeader',
   data(){
     return{
-      store,
-      typesLength: []
+      store
     }
-  },  
+  },
   methods:{
     searchNameCard(){
       store.filtered = store.cardsOfThatType
@@ -34,10 +32,16 @@ export default {
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <select v-on:change="changeType" class="form-select text-body-secondary" id="inputGroupSelect01">
-              <option :value="type.name" v-for="(type, index) in store.archetypes" :key="index">
-                  {{ type.name }} 
-                  ({{ type.size }})
-              </option>
+              <template v-for="(type, index) in store.archetypes" :key="index">
+                <option v-if="type.name == store.typeActive" :value="type.name" selected>
+                    {{ type.name }} 
+                    ({{ type.size }})
+                </option>
+                <option v-else :value="type.name">
+                    {{ type.name }} 
+                    ({{ type.size }})
+                </option>
+              </template>
             </select>
           </li>
         </ul>

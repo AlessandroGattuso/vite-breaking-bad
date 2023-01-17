@@ -32,9 +32,12 @@
         }, 1000)
       },
       async getArchetypes(){
+        let temp= [];
+
         await axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php')
         .then((answer)=>{
-          store.archetypes =  answer.data.map(item => {
+          temp =  answer.data.map((item, index) => {
+            
             if(item.archetype_name == 'Mayakashi\n Shiranui'){
              return 'Mayakashi'
             }
@@ -44,19 +47,15 @@
           });
         });
 
-        let archetypesTemp = []
-
-        store.archetypes.map(async (type) => {
+        temp.map(async (type) => {
           await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${type}`)
             .then((answer)=>{
-              store.typesLength.push(answer.data.data.length)
-              archetypesTemp.push({
+              store.archetypes.push({
                   name: type,
                   size: answer.data.data.length
               })
             });
         })
-        store.archetypes = archetypesTemp
       }
     }
 }

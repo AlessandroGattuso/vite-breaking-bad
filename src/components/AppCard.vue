@@ -4,27 +4,12 @@ export default {
   props:{
     card: Object
   },
-  created(){
-    this.getCardImage()
-  },
-  methods:{
-    getCardImage(){
-      let tester = new Image();
-      console.log('wow1234')
-      tester.addEventListener('error', this.imageNotFound);
-      tester.src = this.card.card_images[0].image_url;
-    },
-    imageNotFound(){
-      console.log('entro')
-      this.card.card_images[0].image_url = 'https://upload.wikimedia.org/wikipedia/en/2/2b/Yugioh_Card_Back.jpg'
-    }
-  }
 }
 </script>
 <template>
   <div class="card">
     <div class="card-body d-flex justify-content-center">
-      <img :src="card.card_images[0].image_url" class="card-img-top">
+      <img :src="card.card_images[0].image_url" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/en/2/2b/Yugioh_Card_Back.jpg';" class="card-img-top">
     </div>
     <div class="card-body">
       <h5 class="card-title">{{ card.name }}</h5>

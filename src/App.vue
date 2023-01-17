@@ -27,6 +27,13 @@
         .then((answer)=>{
           store.filtered = store.cardsOfThatType = (answer.data.data).slice()
         });
+        // await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Firewall`)
+        // .then((answer)=>{
+        //   (answer.data.data).map((e) => {
+            
+        //   })
+  
+        // });
         setTimeout(()=>{
           this.loaded = true
         }, 1000)
@@ -56,7 +63,7 @@
               })
             });
         })
-      }
+      },
     }
 }
 </script>

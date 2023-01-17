@@ -9,7 +9,7 @@ export default {
 <template>
   <div class="card">
     <div class="card-body d-flex justify-content-center">
-      <img :src="card.card_images[0].image_url" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/en/2/2b/Yugioh_Card_Back.jpg';" class="card-img-top">
+      <img :src="card.card_images[0].image_url" onerror="this.src='https://upload.wikimedia.org/wikipedia/en/2/2b/Yugioh_Card_Back.jpg';" class="card-img-top">
     </div>
     <div class="card-body">
       <h5 class="card-title">{{ card.name }}</h5>
